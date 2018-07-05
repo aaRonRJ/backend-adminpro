@@ -45,6 +45,6 @@ app.use('/img', imagesRoutes);
 app.use('/', appRoutes);
 
 // Escuchar peticiones.
-app.listen(3088, () => {
-    console.log('Express server, puerto 3088. \x1b[32m%s\x1b[0m', 'ONLINE.');
+app.listen(3089, () => {
+    console.log('Express server, puerto 3089. \x1b[32m%s\x1b[0m', 'ONLINE.');
 });
