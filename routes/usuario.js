@@ -9,8 +9,14 @@ var auth = require('../middlewares/auth');
 
 /* Obtener todos los usuarios */
 app.get('/', (request, response, next) => {
+    var limit = request.query.limit || 0;
+    var from = request.query.from || 0;
+    from = Number(from);
+
     Usuario
         .find({}, 'name email img role')
+        .skip(from)
+        .limit(limit)
         .exec(
             (err, users) => {
                 if (err) {
@@ -21,9 +27,12 @@ app.get('/', (request, response, next) => {
                     });
                 }
 
-                response.status(200).json({
-                    ok: true,
-                    usuarios: users
+                Usuario.count({}, (err, conteo) => {
+                    response.status(200).json({
+                        ok: true,
+                        usuarios: users,
+                        total: conteo
+                    });
                 });
             }
         );
